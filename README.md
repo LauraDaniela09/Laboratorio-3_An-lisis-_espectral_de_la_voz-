@@ -123,7 +123,9 @@ for archivo in archivos:
     print("Energia:", energia)
 ```
 ## resultados 
+
 ## Man 1 
+
 <img width="724" height="393" alt="image" src="https://github.com/user-attachments/assets/e43f8898-403a-4a34-86d0-b9f417de6b44" />
 <img width="691" height="398" alt="image" src="https://github.com/user-attachments/assets/fc5ae158-30fd-4c3d-b57c-ef845802b9ad" />
 ## resultados 
@@ -131,15 +133,20 @@ Frecuencia fundamental: 216.6 Hz
 Frecuencia media: 501.48 Hz
 Brillo: 501.48
 Energia: 6918357074850.0
+
 ## Man 2 
 <img width="724" height="393" alt="image" src="https://github.com/user-attachments/assets/9fb480ec-3050-41f1-8bc7-c93649c76bbb" />
 <img width="691" height="398" alt="image" src="https://github.com/user-attachments/assets/6d154acd-443b-478b-85b0-0ef14fbc15db" />
+
+
 ## resultados 
 Frecuencia fundamental: 190.44 Hz
 Frecuencia media: 441.54 Hz
 Brillo: 441.54
 Energia: 2484201169383.0
+
 ## Man 3 
+
 <img width="724" height="393" alt="image" src="https://github.com/user-attachments/assets/9fc9448c-303f-43ec-82a7-c1db592ada52" />
 <img width="678" height="398" alt="image" src="https://github.com/user-attachments/assets/0622f756-9a21-44aa-b436-58a0378ec95d" />
 ## resultados
