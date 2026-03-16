@@ -144,8 +144,11 @@ for archivo in archivos:
 
 ## resultados 
 -Frecuencia fundamental: 190.44 Hz
+
 -Frecuencia media: 441.54 Hz
+
 -Brillo: 441.54
+
 -Energia: 2484201169383.0
 
 ## Man 3 
@@ -154,8 +157,11 @@ for archivo in archivos:
 
 ## resultados
 -Frecuencia fundamental: 123.36 Hz
+
 -Frecuencia media: 542.96 Hz
+
 -Brillo: 542.96
+
 -Energia: 3217311983931.0
 
 
@@ -165,8 +171,11 @@ for archivo in archivos:
 
 ## resultados 
 -Frecuencia fundamental: 214.12 Hz
+
 -Frecuencia media: 545.6 Hz
+
 -Brillo: 545.6
+
 -Energia: 8596806895859.0
 
 
@@ -176,8 +185,11 @@ for archivo in archivos:
 
 ## resultados 
 -Frecuencia fundamental: 177.68 Hz
+
 -Frecuencia media: 560.28 Hz
+
 -Brillo: 560.28
+
 -Energia: 2444546048837.0
 
 
@@ -187,7 +199,10 @@ for archivo in archivos:
 
 ## resultados 
 -Frecuencia fundamental: 484.79 Hz
+
 -Frecuencia media: 599.59 Hz
+
 -Brillo: 599.59
+
 -Energia: 7461476423006.0
 
