@@ -130,8 +130,11 @@ for archivo in archivos:
 
 ## resultados 
 -Frecuencia fundamental: 216.6 Hz
+
 -Frecuencia media: 501.48 Hz
+
 -Brillo: 501.48
+
 -Energia: 6918357074850.0
 
 ## Man 2 
