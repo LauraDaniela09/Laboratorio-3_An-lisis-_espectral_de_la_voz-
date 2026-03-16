@@ -122,24 +122,24 @@ for archivo in archivos:
     print("Brillo:", round(brillo,2))
     print("Energia:", energia)
 ```
-## resultados
-## Man 1
+## resultados 
+## Man 1 
 <img width="724" height="393" alt="image" src="https://github.com/user-attachments/assets/e43f8898-403a-4a34-86d0-b9f417de6b44" />
 <img width="691" height="398" alt="image" src="https://github.com/user-attachments/assets/fc5ae158-30fd-4c3d-b57c-ef845802b9ad" />
-## resultados
+## resultados 
 Frecuencia fundamental: 216.6 Hz
 Frecuencia media: 501.48 Hz
 Brillo: 501.48
 Energia: 6918357074850.0
-## Man 2
+## Man 2 
 <img width="724" height="393" alt="image" src="https://github.com/user-attachments/assets/9fb480ec-3050-41f1-8bc7-c93649c76bbb" />
 <img width="691" height="398" alt="image" src="https://github.com/user-attachments/assets/6d154acd-443b-478b-85b0-0ef14fbc15db" />
-## resultados
+## resultados 
 Frecuencia fundamental: 190.44 Hz
 Frecuencia media: 441.54 Hz
 Brillo: 441.54
 Energia: 2484201169383.0
-## Man 3
+## Man 3 
 <img width="724" height="393" alt="image" src="https://github.com/user-attachments/assets/9fc9448c-303f-43ec-82a7-c1db592ada52" />
 <img width="678" height="398" alt="image" src="https://github.com/user-attachments/assets/0622f756-9a21-44aa-b436-58a0378ec95d" />
 ## resultados
@@ -150,7 +150,7 @@ Brillo: 542.96
 Energia: 3217311983931.0
 
 
-## Mujer 1
+## Mujer 1 
 <img width="724" height="393" alt="image" src="https://github.com/user-attachments/assets/871dcfef-c43a-4e95-ada2-e1e897a03dbe" />
 <img width="678" height="398" alt="image" src="https://github.com/user-attachments/assets/4ecf7cd5-c15a-4ac1-9ac2-da06519cccc2" />
 ## resultados 
@@ -162,10 +162,10 @@ Brillo: 545.6
 Energia: 8596806895859.0
 
 
-## Mujer 2
+## Mujer 2 
 <img width="724" height="393" alt="image" src="https://github.com/user-attachments/assets/c0341665-b956-4b68-8274-9db7c0e05dcd" />
 <img width="678" height="398" alt="image" src="https://github.com/user-attachments/assets/f2675e8b-98e0-45ac-907c-d3d1ace12051" />
-## resultados
+## resultados 
 
 
 Frecuencia fundamental: 177.68 Hz
@@ -174,10 +174,10 @@ Brillo: 560.28
 Energia: 2444546048837.0
 
 
-## Mujer 3
+## Mujer 3 
 <img width="724" height="393" alt="image" src="https://github.com/user-attachments/assets/03d836be-c7b2-4dc3-8339-ba865006b60a" />
 <img width="678" height="398" alt="image" src="https://github.com/user-attachments/assets/7778101d-fec7-40f5-824b-22315d0c801b" />
-## resultados
+## resultados 
 
 
 Frecuencia fundamental: 484.79 Hz
