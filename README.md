@@ -341,7 +341,6 @@ plt.ylabel("Amplitud")
 plt.tight_layout()
 plt.show()
 ```
-<img width="1189" height="490" alt="image" src="https://github.com/user-attachments/assets/1dd0273b-41a5-465f-b03c-f86d0beefd98" />
 Se grafica la respuesta de frecuencia (Diagrama Bode de magnitud)
 
 ## Grafico de respuesta de frecuencia (bode)
