@@ -437,3 +437,5 @@ plt.show()
 ```
 <img width="1790" height="789" alt="image" src="https://github.com/user-attachments/assets/ab26f90e-aa1b-40af-9247-5e086bebd458" />
 <img width="758" height="225" alt="image" src="https://github.com/user-attachments/assets/00867a27-7f9a-492f-a094-b81f387036cd" />
+
+<h1 align="center"><i><b>𝙋𝙖𝙧𝙩𝙚 𝘾 𝙙𝙚𝙡 𝙡𝙖𝙗𝙤𝙧𝙖𝙩𝙤𝙧𝙞𝙤</b></i></h1>
