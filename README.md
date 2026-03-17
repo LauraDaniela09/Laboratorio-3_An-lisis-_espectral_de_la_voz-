@@ -346,7 +346,7 @@ Se grafica la respuesta de frecuencia (Diagrama Bode de magnitud)
 
 ## Grafico de respuesta de frecuencia (bode)
 
-```pythom
+```python
 w, h = signal.freqz(b, a, worN=4096, fs=fs)
 
 plt.figure(figsize=(10,5))
@@ -371,7 +371,7 @@ plt.show()
 Se importan las librerias, se define la función `jitter_shimmer` donde se recibe la señal de voz, se calculan el jitter y shimmer y sus porcentajes.
 Finalmente se visualiza una grafica donde se ve en azul la señal original de voz, en rojo los cruces por ceros y en verde los picos. Y una tabla con los resultados de cada señal.
 
-```pythom
+```python
 import pandas as pd
 
 resultados = []
