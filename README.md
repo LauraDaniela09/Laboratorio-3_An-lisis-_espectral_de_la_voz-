@@ -300,24 +300,74 @@ plt.suptitle("Filtro Pasa Banda", fontsize=14)
 plt.tight_layout(rect=[0,0,1,0.95])
 plt.show()
 ```
+El código grafica la señal de voz de un hombre antes y después de aplicar un filtro pasa banda Butterworth de 80–400 Hz. La primera gráfica muestra la señal original, y la segunda la señal filtrada, donde se conservan solo las frecuencias propias de la voz masculina y se eliminan ruidos fuera de ese rango. luego lo mismo pero con la señal de la mujer pero con rango de 150-500Hz.
 ## Resultado
 <img width="1189" height="495" alt="image" src="https://github.com/user-attachments/assets/a1745483-1796-458b-8b86-0f055d9905dd" />
 
 Hombres
 ======================
-Rango: 80-400 Hz
-A = 1.3604
-B = 1.6232
-Wr = 1.3604
-n = 3.5771 ≈ 4
+° Rango: 80-400 Hz
+° A = 1.3604
+° B = 1.6232
+° Wr = 1.3604
+°n = 3.5771 ≈ 4
 
 
 Mujeres
 ======================
-Rango: 150-500 Hz
-A = 1.4429
-B = 1.3571
-Wr = 1.3571
-n = 3.6053 ≈ 4
+° Rango: 150-500 Hz
+° A = 1.4429
+° B = 1.3571
+° Wr = 1.3571
+° n = 3.6053 ≈ 4
 
+## Medición jitter y shimmer
 
+Se importan las librerias, se define la función `jitter_shimmer` donde se recibe la señal de voz, se calculan el jitter y shimmer y sus porcentajes.
+Finalmente se visualiza una grafica donde se ve en azul la señal original de voz, en rojo los cruces por ceros y en verde los picos. Y una tabla con los resultados de cada señal.
+
+## Hombre
+
+```python
+plt.figure(figsize=(12,5))
+
+plt.subplot(2,1,1)
+plt.plot(t, man1, color='#005C63')
+plt.title("Señal original (voz Hombre)")
+plt.xlabel("Tiempo [s]")
+plt.ylabel("Amplitud")
+
+plt.subplot(2,1,2)
+plt.plot(t, man1_filtrada, color='#00A5A8')
+plt.title("Señal filtrada (80–400 Hz)")
+plt.xlabel("Tiempo [s]")
+plt.ylabel("Amplitud")
+
+plt.tight_layout()
+plt.show()
+```
+<img width="1189" height="490" alt="image" src="https://github.com/user-attachments/assets/4302da17-d6bb-41b0-96f9-c4c99c608a6d" />
+<img width="862" height="552" alt="image" src="https://github.com/user-attachments/assets/a70ac825-a881-422e-bf32-c3f479eacb26" />
+
+## Mujer
+
+```python
+plt.figure(figsize=(12,5))
+
+plt.subplot(2,1,1)
+plt.plot(t, mujer1, color='#6A5ACD')
+plt.title("Señal original (voz Mujer)")
+plt.xlabel("Tiempo [s]")
+plt.ylabel("Amplitud")
+
+plt.subplot(2,1,2)
+plt.plot(t, mujer1_filtrada, color='#9A00FF')
+plt.title("Señal filtrada (150–500 Hz)")
+plt.xlabel("Tiempo [s]")
+plt.ylabel("Amplitud")
+
+plt.tight_layout()
+plt.show()
+```
+<img width="1189" height="490" alt="image" src="https://github.com/user-attachments/assets/62defb23-5f3d-4fae-ae81-9b25095893d8" />
+<img width="862" height="475" alt="image" src="https://github.com/user-attachments/assets/9b2e19af-5ec9-43c9-8573-339ff4c6e256" />
