@@ -212,162 +212,158 @@ for archivo in archivos:
 
 <h1 align="center"><i><b>𝙋𝙖𝙧𝙩𝙚 𝘽 𝙙𝙚𝙡 𝙡𝙖𝙗𝙤𝙧𝙖𝙩𝙤𝙧𝙞𝙤</b></i></h1>
 
+
+### Filtro pasabanda hombre
+
+Antes de iniciar el codigo se desarrolló a mano el filtro pasabanda para poder encontrar el orden necesario y definir los parametros. 
+<p align="center">
+<img width="600" height="1280" alt="image" src="https://github.com/user-attachments/assets/e0b9f2fe-c3ac-43a2-966d-092f56510ba2" />
+</p>
+
+
 Primero se importan las librerias, se lee el archivo `/Man1.wav` y guarda la frecuencia de muestreo en `ratem1` y los datos de la señal en `Man1`.
 Después define los parametros del filtro pasabanda como la frecuencia de corte baja y alta basandose en los valores teoricos. Para hombres está el rango de 80-400Hz.
 
 ```python
-import numpy as np
-import matplotlib.pyplot as plt
 from scipy import signal
+from scipy.io import wavfile
+ratem1, Man1 = wav.read("/Man1.wav")
 
-# Especificaciones
-K1 = -3
-K2 = -10
-fs = 4000  # frecuencia de muestreo
+f_low = 80
+f_high = 400
+order = 4
+fs = ratem1
+nyquist = fs / 2
+low = f_low / nyquist
+high = f_high / nyquist
 
-def calcular_y_graficar(nombre, fl, fu, w1, w2, subplot):
-
-    wl = 2*np.pi*fl
-    wu = 2*np.pi*fu
-
-    # A y B
-    A = abs((w1**2 - wl*wu) / (w1*(wu - wl)))
-    B = abs((w2**2 - wl*wu) / (w2*(wu - wl)))
-
-    wr = min(A, B)
-
-    # Orden
-    n = np.log10((10**(-K2/10)-1)/(10**(-K1/10)-1)) / (2*np.log10(wr))
-    n_aprox = int(np.ceil(n))
-
-    print("\n======================")
-    print(nombre)
-    print("======================")
-    print(f"Rango: {fl}-{fu} Hz")
-    print(f"A = {A:.4f}")
-    print(f"B = {B:.4f}")
-    print(f"Wr = {wr:.4f}")
-    print(f"n = {n:.4f} ≈ {n_aprox}")
-
-    # Diseño del filtro
-    low = fl / (fs/2)
-    high = fu / (fs/2)
-
-    b, a = signal.butter(n_aprox, [low, high], btype='band')
-
-    # Respuesta en frecuencia
-    w, h = signal.freqz(b, a, worN=2000)
-    f = w * fs / (2*np.pi)
-
-    # Graficar
-    plt.subplot(1,2,subplot)
-
-    plt.plot(f, 20*np.log10(abs(h)), color='#5A4FCF', linewidth=2)
-
-    plt.axhline(-3, color='#D81B60', linestyle='--', label='-3 dB')
-    plt.axhline(-10, color='#311B92', linestyle='--', label='-10 dB')
-
-    plt.axvline(fl, color='#D81B60', linestyle=':', label='f1')
-    plt.axvline(fu, color='#311B92', linestyle=':', label='f2')
-
-    plt.title(f"{nombre} (n ≈ {n_aprox})")
-    plt.xlabel("Frecuencia [Hz]")
-    plt.ylabel("Magnitud [dB]")
-    plt.grid(True, alpha=0.3)
-    plt.legend()
-
-plt.figure(figsize=(12,5))
-
-calcular_y_graficar(
-    "Hombres",
-    fl=80,
-    fu=400,
-    w1=402.6,
-    w2=3613.2,
-    subplot=1
-)
-
-calcular_y_graficar(
-    "Mujeres",
-    fl=150,
-    fu=500,
-    w1=2*np.pi*150*0.8,
-    w2=2*np.pi*500*1.2,
-    subplot=2
-)
-
-plt.suptitle("Filtro Pasa Banda", fontsize=14)
-plt.tight_layout(rect=[0,0,1,0.95])
-plt.show()
+b, a = signal.butter(order, [f_low/nyquist, f_high/nyquist], btype='bandpass')
+Man1_filtrada = signal.filtfilt(b, a, Man1)
+t = np.linspace(0, len(Man1)/fs, len(Man1))
 ```
-El código grafica la señal de voz de un hombre antes y después de aplicar un filtro pasa banda Butterworth de 80–400 Hz. La primera gráfica muestra la señal original, y la segunda la señal filtrada, donde se conservan solo las frecuencias propias de la voz masculina y se eliminan ruidos fuera de ese rango. luego lo mismo pero con la señal de la mujer pero con rango de 150-500Hz.
-## Resultado
-<img width="1189" height="495" alt="image" src="https://github.com/user-attachments/assets/a1745483-1796-458b-8b86-0f055d9905dd" />
-
-Hombres
-======================
-° Rango: 80-400 Hz
-° A = 1.3604
-° B = 1.6232
-° Wr = 1.3604
-°n = 3.5771 ≈ 4
-
-
-Mujeres
-======================
-° Rango: 150-500 Hz
-° A = 1.4429
-° B = 1.3571
-° Wr = 1.3571
-° n = 3.6053 ≈ 4
-
-## Medición jitter y shimmer
-
-Se importan las librerias, se define la función `jitter_shimmer` donde se recibe la señal de voz, se calculan el jitter y shimmer y sus porcentajes.
-Finalmente se visualiza una grafica donde se ve en azul la señal original de voz, en rojo los cruces por ceros y en verde los picos. Y una tabla con los resultados de cada señal.
-
-## Hombre
+Se asigna la frecuencia de muestreo `ratem1` a la variable `fs` y se calculan las frecuencias normalizadas y la de Nyquist.
+Se diseña el filtro pasabanda tipo butterworth que devuelve los coeficientes del filtro en `b` (numerador) y `a` (denominador).
+Aplica el filtro a la señal usando `filtfilt`, que filtra hacia adelante y hacia atrás para eliminar el desfase (fase cero).
 
 ```python
 plt.figure(figsize=(12,5))
-
 plt.subplot(2,1,1)
-plt.plot(t, man1, color='#005C63')
+plt.plot(t, Man1, color='#005C63')
 plt.title("Señal original (voz Hombre)")
 plt.xlabel("Tiempo [s]")
 plt.ylabel("Amplitud")
-
 plt.subplot(2,1,2)
-plt.plot(t, man1_filtrada, color='#00A5A8')
-plt.title("Señal filtrada (80–400 Hz)")
+plt.plot(t, Man1_filtrada, color='#00A5A8')
+plt.title("Señal filtrada (pasa banda 80–400 Hz, Butterworth orden 4)")
 plt.xlabel("Tiempo [s]")
 plt.ylabel("Amplitud")
-
 plt.tight_layout()
 plt.show()
 ```
-<img width="1189" height="490" alt="image" src="https://github.com/user-attachments/assets/4302da17-d6bb-41b0-96f9-c4c99c608a6d" />
-<img width="862" height="552" alt="image" src="https://github.com/user-attachments/assets/a70ac825-a881-422e-bf32-c3f479eacb26" />
+El código grafica la señal de voz de un hombre antes y después de aplicar un filtro pasa banda Butterworth de 80–400 Hz. La primera gráfica muestra la señal original, y la segunda la señal filtrada, donde se conservan solo las frecuencias propias de la voz masculina y se eliminan ruidos fuera de ese rango.
+## resultado
+<img width="1189" height="490" alt="image" src="https://github.com/user-attachments/assets/da48f4cc-3d65-4d8e-ad49-1581c34be717" />
 
-## Mujer
 
 ```python
-plt.figure(figsize=(12,5))
+w, h = signal.freqz(b, a, worN=4096, fs=fs)  # usamos fs para escalar en Hz
 
+plt.figure(figsize=(10,6))
+
+# Magnitud
 plt.subplot(2,1,1)
-plt.plot(t, mujer1, color='#6A5ACD')
-plt.title("Señal original (voz Mujer)")
-plt.xlabel("Tiempo [s]")
-plt.ylabel("Amplitud")
-
-plt.subplot(2,1,2)
-plt.plot(t, mujer1_filtrada, color='#9A00FF')
-plt.title("Señal filtrada (150–500 Hz)")
-plt.xlabel("Tiempo [s]")
-plt.ylabel("Amplitud")
-
+plt.semilogx(w, 20 * np.log10(abs(h)), color='#00796B')
+plt.title('Diagrama de Bode - Magnitud (Filtro pasa banda 80–400 Hz)')
+plt.xlabel('Frecuencia [Hz]')
+plt.ylabel('Ganancia [dB]')
+plt.xlim(10, fs/2)
+plt.ylim(-80, 5)
+plt.grid(True, which='both', linestyle='--', alpha=0.7)
 plt.tight_layout()
 plt.show()
 ```
-<img width="1189" height="490" alt="image" src="https://github.com/user-attachments/assets/62defb23-5f3d-4fae-ae81-9b25095893d8" />
-<img width="862" height="475" alt="image" src="https://github.com/user-attachments/assets/9b2e19af-5ec9-43c9-8573-339ff4c6e256" />
+El código usa `signal.freqz()` para obtener la respuesta en frecuencia del filtro y graficarla en escala logarítmica. Muestra cómo varía la ganancia en decibelios según la frecuencia, destacando la banda de paso entre 80 y 400 Hz y la atenuación fuera de ese rango.
+## Grafico de respuesta de frecuencia (bode)
+
+<p align="center">
+<img width="700" height="332" alt="image" src="https://github.com/user-attachments/assets/0d890148-9a96-4a74-ac6b-684a0f1f9b52" />
+</p>
+
+### Filtro pasabanda mujer
+
+Se repite el mismo proceso para la señal de mujer pero con rango de 150-500Hz.
+<img width="1189" height="490" alt="image" src="https://github.com/user-attachments/assets/636e7335-ca71-40a3-88a9-aab50dc182ea" />
+
+
+```python
+from scipy import signal
+from scipy.io import wavfile
+ratem1, Mujer1 = wav.read("/Mujer1.wav")
+
+f_low = 150
+f_high = 500
+order = 2
+fs = ratem1
+nyquist = fs / 2
+low = f_low / nyquist
+high = f_high / nyquist
+
+b, a = signal.butter(order, [f_low/nyquist, f_high/nyquist], btype='bandpass')
+Mujer1_filtrada = signal.filtfilt(b, a, Mujer1)
+t = np.linspace(0, len(Mujer1)/fs, len(Mujer1))
+
+plt.figure(figsize=(12,5))
+plt.subplot(2,1,1)
+plt.plot(t, Mujer1, color='#6A5ACD')
+plt.title("Señal original (voz mujer)")
+plt.xlabel("Tiempo [s]")
+plt.ylabel("Amplitud")
+plt.subplot(2,1,2)
+plt.plot(t, Mujer1_filtrada, color='#9A00FF')
+plt.title("Señal filtrada (pasa banda 150–500 Hz, Butterworth orden 2)")
+plt.xlabel("Tiempo [s]")
+plt.ylabel("Amplitud")
+plt.tight_layout()
+plt.show()
+```
+```python
+plt.figure(figsize=(12,5))
+plt.subplot(2,1,1)
+plt.plot(t, Mujer1, color='#6A5ACD')
+plt.title("Señal original (voz mujer)")
+plt.xlabel("Tiempo [s]")
+plt.ylabel("Amplitud")
+plt.subplot(2,1,2)
+plt.plot(t, Mujer1_filtrada, color='#9A00FF')
+plt.title("Señal filtrada (pasa banda 150–500 Hz, Butterworth orden 2)")
+plt.xlabel("Tiempo [s]")
+plt.ylabel("Amplitud")
+plt.tight_layout()
+plt.show()
+```
+<img width="1189" height="490" alt="image" src="https://github.com/user-attachments/assets/1dd0273b-41a5-465f-b03c-f86d0beefd98" />
+Se grafica la respuesta de frecuencia (Diagrama Bode de magnitud)
+
+## Grafico de respuesta de frecuencia (bode)
+
+```pythom
+w, h = signal.freqz(b, a, worN=4096, fs=fs)
+
+plt.figure(figsize=(10,5))
+plt.semilogx(w, 20 * np.log10(abs(h)), color='#9A00FF')
+plt.title('Diagrama de Bode - Magnitud (Filtro pasa banda 150–500 Hz)')
+plt.xlabel('Frecuencia [Hz]')
+plt.ylabel('Ganancia [dB]')
+plt.xlim(10, fs/2)
+plt.ylim(-80, 5)
+plt.grid(True, which='both', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.show()
+
+```
+<p align="center">
+<img width="600" height="489" alt="image" src="https://github.com/user-attachments/assets/6a71ad18-38f6-4558-8b29-9511c5e2fdc8" />
+</p>
+
+
+## Medición jitter y shimmer
